@@ -1,41 +1,36 @@
-# RainbowCrack Download Guide  
+# Task 2: Use RainbowCrack to Decrypt a Windows LM Password Hash
 
-## Overview  
-RainbowCrack is a tool used for speeding up the password cracking process using rainbow tables. It is suitable for various operating systems and can be utilized for security research, penetration testing, and other ethical hacking activities.  
+## Steps:
 
-## Requirements  
-Before downloading RainbowCrack, ensure you have the following:  
-- A compatible operating system (Windows, Linux)  
-- Administrative privileges for installation  
+1. **Generate Rainbow Tables**
+   - Use the `rtgen` command to create rainbow tables for alphanumeric passwords.
+   - Example command:
+     ```
+     rtgen lm rainbow_table_path 0  characters 0  1  0  0
+     ```
 
-## Download Instructions  
+2. **Sort Rainbow Tables**
+   - Use the `rtsort` command to sort the generated tables for efficient cracking.
+   - Example command:
+     ```
+     rtsort rainbow_table_path
+     ```
 
-### Step 1: Visit the Official Website  
-1. Go to the official RainbowCrack website:  
-   - [RainbowCrack Official Site](http://project-rainbowcrack.com/)  
+3. **Obtain LM Hashes**
+   - Extract the LM hashes from the SAM database using tools like `pwdump3`.
+   - Example command:
+     ```
+     pwdump3 system_file_path security_file_path > lm_hashes.txt
+     ```
 
-### Step 2: Locate the Download Section  
-2. On the homepage, navigate to the "Download" section or menu option.  
+4. **Crack Passwords**
+   - Use the `rcrack` command with the sorted rainbow tables and the extracted LM hashes to find the plaintext passwords.
+   - Example command:
+     ```
+     rcrack . -h lm_hashes.txt
+     ```
 
-### Step 3: Choose Appropriate Version  
-3. Select the version compatible with your operating system (Windows or Linux).   
+## Note:
+Ensure that you have the appropriate permissions and legal authority to perform these actions, as they involve accessing and cracking passwords from a Windows system.
+```
 
-### Step 4: Download the Package  
-4. Click on the download link to start downloading the RainbowCrack package.  
-
-### Step 5: Verify the Download  
-5. Optionally, verify the integrity of the downloaded file by checking the file hash (MD5/SHA256) provided on the website, if available.  
-
-## Installation Instructions  
-
-### Windows  
-1. Once the download is complete, locate the downloaded `.zip` or `.exe` file.  
-2. If it's a `.zip` file, extract it using an extraction tool (like WinRAR or 7-Zip).  
-3. Run the executable file and follow the prompts to complete the installation.  
-
-### Linux  
-1. Open the terminal.  
-2. Navigate to the directory where the downloaded file is located.  
-3. Use the following command to extract the downloaded package (if it's a `.tar.gz` file):  
-   ```bash  
-   tar -xzvf rainbowcrack-<version>.tar.gz
